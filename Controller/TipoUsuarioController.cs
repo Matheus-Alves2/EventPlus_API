@@ -9,42 +9,25 @@ namespace EventPlus_.Controller
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class TipoEventoController : ControllerBase
+    public class TipoUsuarioController : ControllerBase
     {
-        private readonly ITipoEventoRepository _tipoEventoRepository;
+        private readonly ITipoUsuarioRepository _tipoUsuarioRepository;
 
-        public TipoEventoController(ITipoEventoRepository tipoEventoRepository)
+        public TipoUsuarioController(ITipoUsuarioRepository tipoUsuarioRepository)
         {
-            _tipoEventoRepository = tipoEventoRepository;
+            _tipoUsuarioRepository = tipoUsuarioRepository;
         }
 
 
         /// <summary>
-        /// Endpoint para listar os tipos dos eventos
-        /// </summary>
-        [HttpGet]
-        public IActionResult Get()
-        {
-            try
-            {
-                List<TipoEvento> listaDeTipoEvento = _tipoEventoRepository.Listar();
-                return Ok(listaDeTipoEvento);
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
-        /// <summary>
-        /// Endpoint para cadastrar novos tipos de evento
+        /// Endpoint para cadastrar um tipo de usuario
         /// </summary>
         [HttpPost]
-        public IActionResult Post(TipoEvento novoTipoEvento)
+        public IActionResult Post(TipoUsuario novoTipoUsuario)
         {
             try
             {
-                _tipoEventoRepository.Cadastrar(novoTipoEvento);
+                _tipoUsuarioRepository.Cadastrar(novoTipoUsuario);
                 return Created();
             }
             catch (Exception error)
@@ -54,14 +37,32 @@ namespace EventPlus_.Controller
         }
 
         /// <summary>
-        /// Endpoint para atualizar o tipo do evento
+        /// Endpoint para listar os tipos de usuario
         /// </summary>
-        [HttpPost("{id}")]
-        public IActionResult Put(Guid id, TipoEvento tipoEvento)
+        [HttpGet]
+        public IActionResult Get()
         {
             try
             {
-                _tipoEventoRepository.Atualizar(id, tipoEvento);
+                List<TipoUsuario> listaTipoUsuario = _tipoUsuarioRepository.Listar();
+                return Ok(listaTipoUsuario);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para atualizar os tipos de usuario
+        /// </summary>
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, TipoUsuario tipoUsuario)
+        {
+            try
+            {
+                _tipoUsuarioRepository.Atualizar(id, tipoUsuario);
                 return NoContent();
             }
             catch (Exception error)
@@ -71,14 +72,15 @@ namespace EventPlus_.Controller
         }
 
         /// <summary>
-        /// Endpoint para deletar o tipo do evento
+        /// Endpoint para deletar os tipos de usuarios
         /// </summary>
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             try
             {
-                _tipoEventoRepository.Deletar(id);
+                _tipoUsuarioRepository.Deletar(id);
                 return NoContent();
             }
             catch (Exception error)
@@ -88,15 +90,15 @@ namespace EventPlus_.Controller
         }
 
         /// <summary>
-        /// Endpoint para buscar tipo do evento por Id
+        /// Endpoint para buscar o tipo do usuario por Id
         /// </summary>
         [HttpGet("BuscarPorId/{id}")]
-        public IActionResult Get(Guid id)
+        public IActionResult GetById(Guid id)
         {
             try
             {
-                TipoEvento buscaTipoEvento = _tipoEventoRepository.BuscarPorId(id);
-                return Ok(buscaTipoEvento);
+                TipoUsuario novotipoUsuario = _tipoUsuarioRepository.BuscarPorId(id);
+                return Ok(novotipoUsuario);
             }
             catch (Exception error)
             {
