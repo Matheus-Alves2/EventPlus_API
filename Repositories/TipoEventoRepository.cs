@@ -75,7 +75,7 @@ namespace EventPlus_.Repositories
                 }
 
                 _context.SaveChanges();
-            }
+            }  
             catch (Exception)
             {
 

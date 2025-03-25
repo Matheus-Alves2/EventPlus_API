@@ -1,4 +1,5 @@
 using EventPlus_.Context;
+using EventPlus_.Controller;
 using EventPlus_.Domains;
 using EventPlus_.Interfaces;
 using EventPlus_.Repositories;
@@ -22,7 +23,7 @@ builder.Services.AddDbContext<Eventos_Context>(options =>
 
 builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
 builder.Services.AddScoped<ITipoUsuarioRepository, TipoUsuarioRepository>();
-builder.Services.AddScoped<IComentarioEventoRepository, IComentarioEventoRepository>();
+builder.Services.AddScoped<IComentarioEventoRepository, ComentarioEventosRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<IPresencasRepository, PresencasRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
